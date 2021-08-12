@@ -4,6 +4,7 @@ class Dealer < CommonPlayer
   def initialize
     super
     @total = 100
+    @points = 0
   end
 
   def hidden_sleeve

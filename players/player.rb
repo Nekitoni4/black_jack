@@ -4,5 +4,6 @@ class Player < CommonPlayer
   def initialize
     super
     @total = 100
+    @points = 0
   end
 end

@@ -23,23 +23,29 @@ class BlackJackInterface
     puts "Доброе пожаловать #{player.name}!"
     init_cards_distribution
     session_bid
-    puts 'Ставки сделаны и внесены в банк игры - ставок больше нет'
+    puts "Ставки сделаны и внесены в банк игры - ставок больше нет\n____________________________\n\n"
     loop do
+      puts "Диллер\n________\nКарты: #{dealer.hidden_sleeve}\n________\nИгрок #{player.name}\n" \
+           "________\nКарты: #{player.send(:show_sleeve)}.\nКоличество очков: #{player.send(:show_points)}\n_______\n"
       if player_turn
         player_game
+        change_turn
       else
         dealer_game
+        change_turn
       end
-      change_turn
     end
   end
 
   def player_game
-    puts "#{player.name}, сейчас ваш ход!\nВы можете сделать следующее:\n1)Пропустить ход\n2)Добавить карту\n" \
-    '3)Открыть карты'
-    player_actions = {
-      2 => -> { player.add_card cards_issuance }
-    }
+    loop do
+      puts "#{player.name}, сейчас ваш ход!\nВы можете сделать следующее:\n1)Пропустить ход\n2)Добавить карту\n" \
+      '3)Открыть карты'
+      user_action = gets.to_i
+      player_actions = {
+        2 => -> { player.add_card cards_issuance }
+      }
+    end
   end
 
   def dealer_game
@@ -69,8 +75,8 @@ class BlackJackInterface
   end
 
   def cards_issuance
-    random_card = cards.keys[Random.rand(cards.keys.size)]
-    { random_card => cards[random_card] }
+    random_suit = cards.keys[Random.rand(cards.keys.size)]
+    { suit: random_suit, point: cards[random_suit] }
   end
 
   def player_name(name)
