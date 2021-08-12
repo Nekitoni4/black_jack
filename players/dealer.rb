@@ -3,9 +3,9 @@ require_relative '../players/common_player'
 class Dealer < CommonPlayer
   def initialize
     super
-    @total = 100
+    @total_money = 100
     @points = 0
-    @name = "Диллер"
+    @name = "Дилер"
   end
 
   def hidden_sleeve

@@ -1,10 +1,11 @@
-class CommonPlayer
+# frozen_string_literal: true
 
+class CommonPlayer
   attr_accessor :name
 
   def initialize
     @cards_sleeve = []
-    @total = nil
+    @total_money = nil
     @name = nil
     @points = nil
   end
@@ -15,7 +16,7 @@ class CommonPlayer
   end
 
   def bid(money)
-    (total - money) if total >= money
+    money if ((self.total_money = total_money - money) if total_money >= money)
   end
 
   def count_cards
@@ -23,12 +24,17 @@ class CommonPlayer
   end
 
   def get_win(money)
-    self.total += money
+    self.total_money += money
+  end
+
+  def clear_sleeve
+    cards_sleeve.clear
+    self.points = 0
   end
 
   protected
 
-  attr_accessor :cards_sleeve, :total, :points
+  attr_accessor :cards_sleeve, :total_money, :points
 
   def push_card(card)
     cards_sleeve << (ace?(card) ? ace_points(card) : card)
