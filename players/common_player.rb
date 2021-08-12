@@ -11,11 +11,19 @@ class CommonPlayer
 
   def add_card(*cards)
     cards.each { |card| push_card card }
-    calculate_points *cards
+    calculate_points(*cards)
   end
 
   def bid(money)
     (total - money) if total >= money
+  end
+
+  def count_cards
+    cards_sleeve.size
+  end
+
+  def get_win(money)
+    self.total += money
   end
 
   protected
@@ -36,7 +44,7 @@ class CommonPlayer
 
   def ace_points(card)
     points + 11 > 21 ? (point = 1) : (point = 11)
-    { card[:suit] => point }
+    { suit: card[:suit], point: point }
   end
 
   def show_points
@@ -44,6 +52,6 @@ class CommonPlayer
   end
 
   def show_sleeve
-    cards_sleeve.map { |card| card[:suit] }.join(" ")
+    cards_sleeve.map { |card| card[:suit] }.join(' ')
   end
 end

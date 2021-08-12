@@ -5,6 +5,7 @@ class Dealer < CommonPlayer
     super
     @total = 100
     @points = 0
+    @name = "Диллер"
   end
 
   def hidden_sleeve
