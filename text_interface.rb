@@ -27,15 +27,16 @@ class TextInterface
   end
 
   def player_status
-    puts "У #{player.name} следующие карты: #{render_cards}\nКоличество очков: #{player.hand.total}"
+    puts "У #{player.name} следующие карты: #{render_cards player}\nКоличество очков: #{player.hand.total}"
   end
 
   def dealer_hidden_status
-    puts "У #{dealer.name} следующие карты: #{dealer.hand.sleeve.map { '*' }.join}"
+    puts "У #{dealer.name} следующие карты: #{render_hidden_cards}"
   end
 
+
   def dealer_status
-    puts "У #{dealer.name} следующие карты: #{render_cards}\nКоличество очков: #{dealer.hand.total}"
+    puts "У #{dealer.name} следующие карты: #{render_cards dealer}\nКоличество очков: #{dealer.hand.total}"
   end
 
   def player_turn
@@ -79,7 +80,7 @@ class TextInterface
     puts 'К сожалению ничья!'
   end
 
-  def continue?(player)
+  def continue?
     puts "#{player.name} - хотите продолжить?"
     loop do
       case gets.chomp.downcase
@@ -89,12 +90,20 @@ class TextInterface
       end
     end
   end
+  
+  def good_buy
+    puts "Спасибо за игру, #{player.name}"
+  end
 
   private
 
   attr_reader :player, :dealer, :bank, :deck
 
-  def render_cards
+  def render_cards(player)
     player.hand.sleeve.map { |card| "#{card.type}#{card.suit}" }.join
+  end
+
+  def render_hidden_cards
+    dealer.hand.sleeve.map {'*'}.join
   end
 end

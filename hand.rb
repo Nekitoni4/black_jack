@@ -16,6 +16,10 @@ class Hand
     end
   end
 
+  def count_cards
+    sleeve.size
+  end
+
   private
 
   attr_writer :sleeve
